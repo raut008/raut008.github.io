@@ -3,7 +3,7 @@ import { FooterStyle } from './Footer.style'
 
 const Footer = () => {
     return (
-        <FooterStyle className="row mx-0">
+        <FooterStyle className="footer-copyright row mx-0">
             <div className="col">
                 <h3 className="m-0">All Right Reserved</h3>
             </div>

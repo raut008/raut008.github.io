@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { NavBarStyle } from "./NavBarStyle";
 import ContactMe from "../ContactMe/ContactMe";
-import HelpPage from "../HelpPage/HelpPage";
+import AboutMe from "../AboutMe/AboutMe"
 import CardList from '../../Containers/CardList/CardList';
 import Cart from '../Cart/Cart';
 
@@ -21,7 +21,7 @@ const NavBar = () => {
                 <Switch>
                     <Route exact path='/' component={CardList} />
                     <Route path='/contact' component={ContactMe} />
-                    <Route path='/help' component={HelpPage} />
+                    <Route path='/help' component={AboutMe} />
                     <Route path='/cart' component={Cart} />
                 </Switch>
             </Router>

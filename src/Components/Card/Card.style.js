@@ -7,6 +7,7 @@ export const CardStyle = styled.div`
         right: 0;
         outline: none;
     }
+
     :hover{
         box-shadow: 0 0 11px rgba(33,33,33,.2);
     }

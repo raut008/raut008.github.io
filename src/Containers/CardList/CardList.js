@@ -27,6 +27,7 @@ const CardList = (props) => {
         }
     }
 
+    console.log(props.products);
     return (
         <>
             <h6 className="m-2">Our Products</h6>

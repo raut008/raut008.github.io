@@ -1,10 +1,11 @@
 import React from 'react'
+import { Wrapper } from './ContactMe.style'
 
 const ContactMe = () => {
     return (
-        <div>
-            <h1>Contact Me Page</h1>
-        </div>
+        <Wrapper>
+            <h1> Contact Me Page </h1>
+        </Wrapper>
     )
 }
 
