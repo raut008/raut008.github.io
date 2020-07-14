@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { loadProductsRequest } from "../../Actions/ProductsActions";
 import Loading from '../../Components/Loading/Loading';
 import { addToCart } from '../../Actions/CartActions';
+import Dropdown from "../../Components/Dropdown/Dropdown";
+import { handleCategoryChange } from '../../Actions/DropDownActions';
 
 const CardList = (props) => {
 
@@ -18,21 +20,49 @@ const CardList = (props) => {
     );
 
     const renderProductsCard = (products) => {
-        if (products) {
+        if (products && props.dropdownCategory === "Show All") {
             return products.map((product) => (
                 <Card key={product.id} {...product}
                     addProductToCart={() => props.addToCart(product)}
+                    filterCategory={props.dropdownCategory}
                 />
             ));
         }
+        else {
+            return FilterList.map((product) =>
+                <Card key={product.id} {...product}
+                    addProductToCart={() => props.addToCart(product)}
+                    filterCategory={props.dropdownCategory}
+                />
+            )
+        }
     }
 
-    console.log(props.products);
+    let UniqueCategoryArr = [];
+    const FilterUniqueCategory = (products) => {
+        let CategoryArr = [];
+        products.forEach(item => {
+            CategoryArr.push(item.Category);
+        });
+        UniqueCategoryArr = [...new Set(CategoryArr)];
+        UniqueCategoryArr.push("Show All");
+    }
+    FilterUniqueCategory(props.products);
+
+    const FilterList = props.products.filter(item => {
+        return item.Category === props.dropdownCategory;
+    }
+    )
+
     return (
         <>
+            <div className="mx-2 float-right">
+                <Dropdown options={UniqueCategoryArr} change={props.handleCategoryChange} />
+            </div>
+
             <h6 className="m-2">Our Products</h6>
             {
-                props.loading ?
+                props.loaded ?
                     <div className="row mx-2">
                         {renderProductsCard(props.products)}
                     </div> :
@@ -50,11 +80,14 @@ const mapStateToProps = state => ({
     error: state.products.error,
     products: state.products.products,
     cartArray: state.cartItems.cart,
+    dropdownCategory: state.dropdown.category
+
 });
 
 const mapDispatchToProps = dispatch => ({
     loadProducts: bindActionCreators(loadProductsRequest, dispatch),
-    addToCart: bindActionCreators(addToCart, dispatch)
+    addToCart: bindActionCreators(addToCart, dispatch),
+    handleCategoryChange: bindActionCreators(handleCategoryChange, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CardList);
